@@ -764,6 +764,14 @@
             }
         }
     }
+
+    .credit {
+        font-size: 0.45rem;
+        color: #a1a1aa;
+        text-align: center;
+        margin-top: -1.5rem;
+        margin-bottom: 1rem;
+    }
 </style>
 
 <svelte:head>
@@ -775,7 +783,7 @@
 
 <main>
     <h1>GCSim to GO-MultiOpt</h1>
-
+    <div class='credit'>Mejorado por <code>DarkJake#6238</code></div>
     <div 
         class="upload-section"
         class:dragging={isDragging}
