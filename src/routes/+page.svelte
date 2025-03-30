@@ -766,11 +766,36 @@
     }
 
     .credit {
-        font-size: 0.45rem;
-        color: #a1a1aa;
+    font-size: 0.8rem;
+    color: #a1a9aa;
+    text-align: center;
+    margin-top: -2rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+    
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(30, 30, 30, 0.9);
+        color: #ccc;
         text-align: center;
-        margin-top: -1.5rem;
-        margin-bottom: 1rem;
+        padding: 0.5rem;
+        font-size: 0.75rem;
+
+        a {
+            color: hsl(142, 100%, 60%);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+                color: hsl(144, 90%, 70%);
+            }
+        }
     }
 </style>
 
@@ -783,7 +808,7 @@
 
 <main>
     <h1>GCSim to GO-MultiOpt</h1>
-    <div class='credit'>Mejorado por <code>DarkJake#6238</code></div>
+    <div class='credit'>Enhanced by <code>DarkJake#6238</code></div>
     <div 
         class="upload-section"
         class:dragging={isDragging}
@@ -949,3 +974,7 @@
         </div>
     </div>
 </main>
+
+<footer>
+    <p>This application is a modern reinterpretation of <a href="https://imring.github.io/gcsim-to-multiopt/" target="_blank" rel="noopener noreferrer">imring.github.io/gcsim-to-multiopt/</a>, enhancing the user experience and adding new features.</p>
+</footer>
