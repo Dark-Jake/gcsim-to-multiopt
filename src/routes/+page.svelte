@@ -15,6 +15,20 @@
     import type { Sample } from '$lib/gcsim-to-multiopt/gcsim_types';
     import type { CustomMultiTarget } from '$lib/gcsim-to-multiopt/go_types';
 
+    import { initKonamiCode } from '$lib/utils/konamiCode';
+    import PauseIcon from '$lib/components/PauseIcon.svelte';
+    import PlayIcon from '$lib/components/PlayIcon.svelte';
+
+    let isNeonTheme = false;
+    let isPlaying = false;
+    let audio: HTMLAudioElement | null = null;
+    const audioFiles = [
+        '/sound1.mp3',
+        '/sound2.mp3',
+        '/sound3.mp3',
+        '/sound4.mp3',
+    ];
+
     interface ErrorContext {
         message: string;
         raw?: any;
@@ -48,14 +62,50 @@
     }
 
     onMount(() => {
+        const randomAudioFile = audioFiles[Math.floor(Math.random() * audioFiles.length)];
+        audio = new Audio(randomAudioFile); // Ruta al archivo de música
+        audio.loop = true;
+        
+        initKonamiCode(() => {
+            console.log("¡Konami Code activado!");
+            isNeonTheme = true;
+
+            // Activar tema y reproducir música
+            document.body.classList.add('neon-retro-theme');
+            console.log("Estado isNeonTheme:", isNeonTheme); // Depuración
+            if (audio) {
+                audio.play().catch((error) => {
+                    console.error("Error al reproducir el audio:", error);
+                });
+                isPlaying = true; // Actualizar el estado
+            }
+        });
         if (target) {
             updateHighlightedJson();
         }
         return () => {
             if (toastTimeout) clearTimeout(toastTimeout);
+            if (audio) {
+                audio.pause();
+                audio = null;
+            }
         };
     });
 
+    function toggleAudio() {
+        if (!audio) return;
+
+        if (isPlaying) {
+            audio.pause(); // Detener el audio
+        } else {
+            audio.play().catch((error) => {
+                console.error("Error al reproducir el audio:", error);
+            }); // Reanudar el audio
+        }
+
+        isPlaying = !isPlaying; // Alternar el estado
+    }
+    
     function updateCharacterAbils() {
         if (!sample) {
             return;
@@ -297,6 +347,149 @@
         }
     }
 
+    :global(body.neon-retro-theme) {
+        background: black; /* Fondo oscuro */
+        color: #00ffcc; /* Texto en color cian neón */
+        font-family: 'Press Start 2P', monospace; /* Fuente pixelada */
+        font-size: 0.8rem; /* Tamaño reducido */
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Evitar desbordamiento horizontal */
+    }
+
+    :global(body.neon-retro-theme h1),
+    :global(body.neon-retro-theme h2),
+    :global(body.neon-retro-theme h3) {
+        font-size: 1.5rem; /* Tamaño reducido para encabezados */
+        text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff; /* Sombra de neón magenta */
+    }
+
+    :global(body.neon-retro-theme p) {
+        font-size: 0.9rem; /* Tamaño reducido para párrafos */
+        text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; /* Sombra de neón cian */
+    }
+
+    :global(body.neon-retro-theme button) {
+        background: #ff00ff; /* Botón magenta */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; /* Sombra de neón */
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    :global(body.neon-retro-theme button:hover) {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff; /* Sombra más intensa al pasar el mouse */
+    }
+
+    :global(body.neon-retro-theme .neon-text) {
+        font-size: 2rem;
+        animation: flicker 1.5s infinite alternate;
+    }
+
+    @keyframes flicker {
+        0% {
+            text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+        }
+        100% {
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 80px #00ffcc;
+        }
+    }
+
+    :global(body.neon-retro-theme .upload-image-container) {
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    }
+
+    :global(body.neon-retro-theme .image-wrapper) {
+        position: relative;
+        display: inline-block;
+    }
+
+    :global(body.neon-retro-theme .upload-image) {
+        width: 500px;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+
+        /* Efecto de borde neon */
+        filter: drop-shadow(0 0 5px #011c36) drop-shadow(0 0 10px #011c36) drop-shadow(0 0 15px #011c36);
+        transition: transform 0.3s ease, filter 0.3s ease;
+
+        /* Animación al pasar el mouse (opcional) */
+        &:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 7.5px #011c36) drop-shadow(0 0 15px #011c36) drop-shadow(0 0 20px #011c36);
+        }
+    }
+    
+    .audio-control {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    }
+
+    .audio-control button {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 0;
+    }
+
+    .audio-control button svg {
+        width: 60%;
+        height: 60%;
+        display: block;
+    }
+
+    .audio-control button:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+    }
+
+    .audio-control button:active {
+        transform: scale(0.95);
+    }
+    
+    .upload-image-container {
+    text-align: center; /* Centrar la imagen horizontalmente */
+    margin-top: 1rem; /* Espacio entre el recuadro de carga y la imagen */
+    }
+
+    .upload-image {
+        filter: drop-shadow(
+            0 0 10px rgba(0, 0, 0, 0.8)
+        );
+        width: 500px; /* Ancho de la imagen */
+        height: auto; /* Mantener proporción */
+        border-radius: 8px; /* Bordes redondeados (opcional) */
+        display: block; /* Evitar problemas de alineación */
+        margin-left: auto;
+        margin-right: auto; /* Centrar la imagen */
+
+        animation: jump 2s infinite;    
+    }
+
+    @keyframes jump {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0); }
+    }
+
     .upload-section {
         background: rgba(255, 255, 255, 0.05);
         border-radius: 12px;
@@ -492,7 +685,7 @@
                     margin-top: 0;
                     
                     &.expanded {
-                        max-height: 500px;
+                        max-height: none;
                         opacity: 1;
                         margin-top: 0.5rem;
                     }
@@ -838,6 +1031,16 @@
         />
     </div>
 
+    {#if sample == null}
+        <div class="upload-image-container">
+            <img 
+                src="/GCSim-to-GO.png" 
+                alt="Upload hint" 
+                class="upload-image"
+            />
+        </div>
+    {/if}
+
     {#if charNames.length > 0}
         <div class="controls">
             <div class="input-group">
@@ -973,6 +1176,20 @@
             Copied to clipboard!
         </div>
     </div>
+
+<!-- Botón para detener/reanudar el audio -->
+{#if isNeonTheme}
+    <div class="audio-control">
+        <button on:click={toggleAudio}>
+            {#if isPlaying}
+                <PauseIcon width="24" height="24" />
+            {:else}
+                <PlayIcon width="24" height="24" />
+            {/if}
+        </button>
+    </div>
+{/if}
+
 </main>
 
 <footer>
