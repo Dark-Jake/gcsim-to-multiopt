@@ -23,10 +23,10 @@
     let isPlaying = false;
     let audio: HTMLAudioElement | null = null;
     const audioFiles = [
-        '/sound1.mp3',
-        '/sound2.mp3',
-        '/sound3.mp3',
-        '/sound4.mp3',
+        '/gcsim-to-multiopt/sound1.mp3',
+        '/gcsim-to-multiopt/sound2.mp3',
+        '/gcsim-to-multiopt/sound3.mp3',
+        '/gcsim-to-multiopt/sound4.mp3',
     ];
 
     interface ErrorContext {
@@ -1034,7 +1034,7 @@
     {#if sample == null}
         <div class="upload-image-container">
             <img 
-                src="/GCSim-to-GO.png" 
+                src="/gcsim-to-multiopt/GCSim-to-GO.png"
                 alt="Upload hint" 
                 class="upload-image"
             />
