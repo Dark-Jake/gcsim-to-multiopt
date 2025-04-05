@@ -12,6 +12,10 @@ const defaultAbils: AbilsType = {
     "bloom": ["reaction", "bloom"],
     "hyperbloom": ["reaction", "hyperbloom"],
     "overload": ["reaction", "overloaded"],
+    "swirl-hydro": ["reaction", "hydroSwirl"],
+    "swirl-electro": ["reaction", "electroSwirl"],
+    "swirl-cryo": ["reaction", "cryoSwirl"],
+    "swirl-pyro": ["reaction", "pyroSwirl"],
 
     //TODO passives/skills
     //?---------------------Albedo---------------------//
@@ -35,6 +39,11 @@ const defaultAbils: AbilsType = {
     "All is Ash (Cleave)": ["skill", "finalDmg"],
     
     //?---------------------Ayato----------------------//
+    "Kamisato Art: Kyouka": ["skill", "illusionDmg"],
+    "Kamisato Art: Suiyuu": ["burst", "dmg"],
+    "Ayato C6": ["constellation6", "dmg"],
+    
+
     //?---------------------Baizhu---------------------//
     //?---------------------Barbara--------------------//
     //?---------------------Beidou---------------------//
@@ -45,7 +54,22 @@ const defaultAbils: AbilsType = {
     
     //?---------------------Candace--------------------//
     //?---------------------Charlotte------------------//
+
     //?---------------------Chasca---------------------//
+    "Spirit Reins, Shadow Hunt": ["skill", "activationDmg"],
+    "Shadowhunt Shell": ["skill", "shellDmg"],
+    "Shining Shadowhunt Shell (hydro)": ["skill", "shiningShellDmg_hydro"],
+    "Shining Shadowhunt Shell (pyro)": ["skill", "shiningShellDmg_pyro"],
+    "Shining Shadowhunt Sheel (cryo)": ["skill", "shiningShellDmg_cryo"],
+    "Shining Shadowhunt Shell (electro)": ["skill", "shiningShellDmg_electro"],
+    "Radiant Soulseeker Shell (hydro)": ["burst", "radiantDmg_hydro"],
+    "Galesplitting Soulseeker Shell": ["burst", "galeSplittingDmg"],
+    "Burning Shadowhunt Shell (pyro)": ["passive2", "pyro"],
+    "Burning Shadowhunt Shell (hydro)": ["passive2", "hydro"],
+    "Burning Shadowhunt Shell (electro)": ["passive2", "electro"],
+    "Burning Shadowhunt Shell (cryo)": ["passive2", "cryo"],
+    "Shining Shadowhunt Shell (C2)": ["constellation2", "pyro"],
+    "Radiant Shadowhunt Shell (C4)": ["constellation4", "hydro"],
     
     //?--------------------Chevreuse-------------------//
     "Sniper Induced Explosion (C2)": ["constellation2", "dmg"],
@@ -147,7 +171,18 @@ const defaultAbils: AbilsType = {
 
     //?---------------------Navia----------------------//
     //!---------------------Neuvillette----------------//
+
     //!---------------------Nilou----------------------//
+    "Tranquility Aura": ["element", "hydro"], // No damage
+    "bloom (self damage)": ["type", "subtype"], // No relevant
+    "Water Wheel": ["skill", "wheelDmg"],
+    "Sword Dance 0": ["skill", "dance1Dmg"],
+    "Sword Dance 1": ["skill", "dance2Dmg"],
+    "Dance of Haftkarsvar": ["skill", "skillDmg"],
+    "Lingering Aeon": ["burst", "aeonDmg"],
+    "Dance of Abzendegi: Distant Dreams, Listening Spring": ["burst", "skillDmg"],
+
+
     //?---------------------Ningguang------------------//
     //?---------------------Noelle---------------------//
     //?---------------------Ororon---------------------//
@@ -165,7 +200,11 @@ const defaultAbils: AbilsType = {
     //?---------------------Tighnari-------------------//
     //?---------------------Traveler (Anemo)-----------//
     //?---------------------Traveler (Cryo)------------//
+
     //?---------------------Traveler (Dendro)----------//
+    "Razorgrass Blade": ["skill", "dmg"],
+    "Lea Lotus Lamp": ["burst", "lampDmg"],
+
     //?---------------------Traveler (Electro)---------//
     //?---------------------Traveler (Geo)-------------//
     //?---------------------Traveler (Hydro)-----------//
