@@ -348,7 +348,7 @@
     }
 
     :global(body.neon-retro-theme) {
-        background: black; /* Fondo oscuro */
+        background: #070410; /* Fondo oscuro */
         color: #00ffcc; /* Texto en color cian neón */
         font-family: 'Press Start 2P', monospace; /* Fuente pixelada */
         font-size: 0.8rem; /* Tamaño reducido */
@@ -466,20 +466,26 @@
     }
     
     .upload-image-container {
-    text-align: center; /* Centrar la imagen horizontalmente */
-    margin-top: 1rem; /* Espacio entre el recuadro de carga y la imagen */
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    }
+
+    .image-wrapper {
+        position: relative;
+        display: inline-block;
     }
 
     .upload-image {
         filter: drop-shadow(
             0 0 10px rgba(0, 0, 0, 0.8)
         );
-        width: 500px; /* Ancho de la imagen */
-        height: auto; /* Mantener proporción */
-        border-radius: 8px; /* Bordes redondeados (opcional) */
-        display: block; /* Evitar problemas de alineación */
+        width: 500px;
+        height: auto;
+        border-radius: 8px;
+        display: block;
         margin-left: auto;
-        margin-right: auto; /* Centrar la imagen */
+        margin-right: auto;
 
         animation: jump 2s infinite;    
     }
@@ -488,6 +494,122 @@
         0% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
         100% { transform: translateY(0); }
+    }
+
+    .hint-area {
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        width: 40%;
+        height: 20%;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 8px;
+        cursor: pointer;
+        opacity: 0;
+        transition: background 0.4s ease, opacity 0.3s ease;
+        overflow: hidden;
+    }
+
+    .hint-area:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+    }
+
+    .hint-area::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(0, 255, 204, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        opacity: 0;
+        transition: none;
+    }
+
+    .hint-area:hover::after {
+        animation: radarPing 1.5s infinite ease-out;
+    }
+
+    @keyframes radarPing {
+        0% {
+            width: 0;
+            height: 0;
+            opacity: 0.6;
+        }
+        70% {
+            width: 200%;
+            height: 200%;
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .hint-message {
+        position: absolute;
+        bottom: -3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.85);
+        color: #00ffcc;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        opacity: 0;
+        pointer-events: none;
+        white-space: nowrap;
+        overflow: hidden;
+        font-family: 'Share Tech Mono', monospace;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+
+        transition: opacity 0.4s ease;
+    }
+
+    .hint-area:hover + .hint-message {
+        opacity: 1;
+    }
+
+    .hint-message::before {
+        content: attr(data-text);
+        display: inline-block;
+        animation: glitchReveal 4s steps(30, end) forwards, flicker 1.8s infinite;
+        opacity: 1;
+        white-space: nowrap;
+    }
+    
+    @keyframes glitchReveal {
+        from {
+            width: 0;
+        }
+        to {
+            width: 100%;
+        }
+    }
+
+    @keyframes flicker {
+        0%, 100% {
+            opacity: 1;
+            text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+        }
+        20% {
+            opacity: 0.8;
+        }
+        40% {
+            opacity: 0.5;
+        }
+        60% {
+            opacity: 0.9;
+            text-shadow: 0 0 2px #00ffcc, 0 0 5px #00ffcc;
+        }
+        80% {
+            opacity: 0.6;
+        }
     }
 
     .upload-section {
@@ -959,49 +1081,156 @@
     }
 
     .credit {
-    font-size: 0.8rem;
-    color: #a1a9aa;
+    font-size: 0.85rem;
+    color: #d1d5db;
     text-align: center;
     margin-top: -2rem;
     margin-bottom: 1rem;
     font-style: italic;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.8s ease-out forwards, pulse 4s ease-in-out 1s infinite;
 }
 
-    
-    footer {
-        position: fixed;
-        bottom: 0;
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+.credit a {
+    text-decoration: none;
+}
+
+.credit a:hover code {
+    color: #93c5fd;
+    text-shadow: 0 0 12px #60a5fa;
+}
+
+
+/* Hover */
+.credit:hover {
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+.credit code {
+    font-family: 'Fira Code', monospace;
+    color: #60a5fa;
+    background: transparent;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 2px #60a5fa;
+    }
+    to {
+        text-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+    }
+}
+
+   
+    .layout {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        background-color: rgba(30, 30, 30, 0.9);
-        color: #ccc;
-        text-align: center;
-        padding: 0.5rem;
-        font-size: 0.75rem;
+        max-width: none;
+    }
 
-        a {
-            color: hsl(142, 100%, 60%);
-            text-decoration: none;
+    main {
+        flex: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
 
-            &:hover {
-                text-decoration: underline;
-                color: hsl(144, 90%, 70%);
-            }
-        }
+    footer {
+    background: linear-gradient(to right, rgba(30, 30, 30, 0.95), rgba(40, 40, 40, 0.95));
+    color: #d1d5db;
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-style: italic;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    margin-top: 2rem;
+    position: relative;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+    footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(30, 30, 30, 0.2), rgba(30, 30, 30, 0.8));
+        z-index: -1;
+        opacity: 0.3;
+    }
+
+    footer p {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    footer a {
+        color: hsl(142, 100%, 70%);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    footer a:hover {
+        color: hsl(144, 100%, 80%);
+        text-shadow: 0 0 8px hsl(144, 100%, 70%);
+        text-decoration: underline;
+        transform: translateY(-3px);
+    }
+
+    footer a:active {
+        transform: translateY(0);
     }
 </style>
 
 <svelte:head>
     <title>GCSim to GO-MultiOpt</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code&display=swap" rel="stylesheet">
 </svelte:head>
 
-<main>
+
+<div class="layout">
+    <main>
     <h1>GCSim to GO-MultiOpt</h1>
-    <div class='credit'>Enhanced by <code>DarkJake#6238</code></div>
+    <div class='credit'>
+        Enhanced by 
+        <a href="https://discord.com/users/723426524585525300" target="_blank" rel="noopener noreferrer">
+          <code>DarkJake#6238</code>
+        </a>
+      </div>      
     <div 
         class="upload-section"
         class:dragging={isDragging}
@@ -1033,12 +1262,18 @@
 
     {#if sample == null}
         <div class="upload-image-container">
-            <img 
-                src="/gcsim-to-multiopt/GCSim-to-GO.png"
-                alt="Upload hint" 
-                class="upload-image"
+            <div class="image-wrapper">
+                <img 
+                    src="/gcsim-to-multiopt/GCSim-to-GO.png"
+                    alt="Upload hint" 
+                    class="upload-image"
             />
+            <!-- Área interactiva -->
+            <div class="hint-area"></div>
+            <!-- Mensaje oculto -->
+            <div class="hint-message" data-text="Ancient patterns echo through pixels past... A famous sequence that saved lives in 8 bits... Can you bring it back to life?"></div>
         </div>
+    </div>
     {/if}
 
     {#if charNames.length > 0}
@@ -1193,5 +1428,10 @@
 </main>
 
 <footer>
-    <p>This application is a modern reinterpretation of <a href="https://imring.github.io/gcsim-to-multiopt/" target="_blank" rel="noopener noreferrer">imring.github.io/gcsim-to-multiopt/</a>, enhancing the user experience and adding new features.</p>
+    <p>This application is a modern reinterpretation of 
+        <a href="https://imring.github.io/gcsim-to-multiopt/" target="_blank" rel="noopener noreferrer">
+            imring.github.io/gcsim-to-multiopt/
+        </a>, enhancing the user experience and adding new features.
+    </p>
 </footer>
+</div>
