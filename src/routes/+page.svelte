@@ -21,6 +21,7 @@
 
     let isNeonTheme = false;
     let isPlaying = false;
+    let decryptSound: HTMLAudioElement;
     let audio: HTMLAudioElement | null = null;
     const audioFiles = [
         '/gcsim-to-multiopt/sound1.mp3',
@@ -63,14 +64,19 @@
 
     onMount(() => {
         const randomAudioFile = audioFiles[Math.floor(Math.random() * audioFiles.length)];
-        audio = new Audio(randomAudioFile); // Ruta al archivo de música
+        audio = new Audio(randomAudioFile);
+        audio.volume = 0.3;
         audio.loop = true;
-        
+
+        const decryptSound = new Audio('/gcsim-to-multiopt/decrypt.mp3');
+        decryptSound.volume = 0.3;
+
+        let revealInterval: NodeJS.Timeout | null = null;
+
         initKonamiCode(() => {
             console.log("¡Konami Code activado!");
             isNeonTheme = true;
 
-            // Activar tema y reproducir música
             document.body.classList.add('neon-retro-theme');
             console.log("Estado isNeonTheme:", isNeonTheme); // Depuración
             if (audio) {
@@ -80,15 +86,61 @@
                 isPlaying = true; // Actualizar el estado
             }
         });
+
         if (target) {
             updateHighlightedJson();
         }
+
+        // --- EFECTO DE TEXTO HACKER + SONIDO ---
+        const hintElement = document.getElementById("hintMessage");
+        const message = "Ancient patterns echo through pixels past... A famous sequence that saved lives in 8 bits... Can you bring it back to life?";
+        const chars = "!<>-_\\/[]{}—=+*^?#________";
+
+        const hintArea = document.querySelector('.hint-area');
+        if (hintElement && hintArea) {
+            hintArea.addEventListener('mouseenter', () => {
+                // Reiniciar sonido y animación
+                if (revealInterval) clearInterval(revealInterval);
+                decryptSound.pause();
+                decryptSound.currentTime = 0;
+                decryptSound.play().catch(e => console.error('Audio error:', e));
+
+                let frame = 0;
+                const interval = 40;
+
+                revealInterval = setInterval(() => {
+                    let output = "";
+                    for (let i = 0; i < message.length; i++) {
+                        if (i < frame) {
+                            output += message[i];
+                        } else {
+                            output += chars[Math.floor(Math.random() * chars.length)];
+                        }
+                    }
+                    hintElement.textContent = output;
+                    frame++;
+
+                    if (frame > message.length) {
+                        if (revealInterval) clearInterval(revealInterval);
+                        hintElement.textContent = message;
+                        decryptSound.pause();
+                    }
+                }, interval);
+            });
+
+            hintArea.addEventListener('mouseleave', () => {
+                if (revealInterval) clearInterval(revealInterval);
+                decryptSound.pause();
+            });
+        }
+
         return () => {
             if (toastTimeout) clearTimeout(toastTimeout);
             if (audio) {
                 audio.pause();
                 audio = null;
             }
+            decryptSound.pause();
         };
     });
 
@@ -575,13 +627,6 @@
         opacity: 1;
     }
 
-    .hint-message::before {
-        content: attr(data-text);
-        display: inline-block;
-        animation: glitchReveal 4s steps(30, end) forwards, flicker 1.8s infinite;
-        opacity: 1;
-        white-space: nowrap;
-    }
     
     @keyframes glitchReveal {
         from {
@@ -1271,7 +1316,7 @@
             <!-- Área interactiva -->
             <div class="hint-area"></div>
             <!-- Mensaje oculto -->
-            <div class="hint-message" data-text="Ancient patterns echo through pixels past... A famous sequence that saved lives in 8 bits... Can you bring it back to life?"></div>
+            <div id="hintMessage" class="hint-message"></div>
         </div>
     </div>
     {/if}
