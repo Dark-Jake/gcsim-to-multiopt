@@ -1379,7 +1379,13 @@
         <div class="mods-grid">
             {#each availabledMods as mod}
                 <div class="mod-item">
-                    <input type="checkbox" bind:group={ignoredMods} value={mod} id={mod} />
+                    <input 
+                        type="checkbox" 
+                        bind:group={ignoredMods} 
+                        value={mod} 
+                        id={mod} 
+                        on:change={updateCharacterAbils}
+                    />
                     <label for={mod}>{mod}</label>
                 </div>
             {/each}
