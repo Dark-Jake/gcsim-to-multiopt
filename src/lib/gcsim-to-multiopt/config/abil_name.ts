@@ -31,6 +31,10 @@ const defaultAbils: AbilsType = {
     "Particular Field: Fetters of Phenomena": ["burst", "instanceDmg"],
     
     //?---------------------Aloy-----------------------//
+    "Freeze Bomb": ["skill", "freezeBombDmg"],
+    "Chillwater Bomblets": ["skill", "chillWaterBomblets"],
+    "Prophecies of Dawn": ["burst", "dmg"],
+
     //?---------------------Amber----------------------//
 
     //?-------------------Arlecchino-------------------//
@@ -43,7 +47,15 @@ const defaultAbils: AbilsType = {
     "Kamisato Art: Suiyuu": ["burst", "dmg"],
     "Ayato C6": ["constellation6", "dmg"],
     
-
+    //?---------------------Ayaka----------------------//
+    //"Charge": ["charged", "dmg1"],
+    "Dash": ["type", "subtype"], //! No damage
+    "Hyouka": ["skill", "press"],
+    "C2 Mini-Frostflake Seki no To (Bloom)": ["constellation2", "bloom"],
+    "Soumetsu (Bloom)": ["burst", "bloom"],
+    "C2 Mini-Frostflake Seki no To (Cutting)": ["constellation2", "dmg"],
+    "Soumetsu (Cutting)": ["burst", "cutting"],
+    
     //?---------------------Baizhu---------------------//
     //?---------------------Barbara--------------------//
     //?---------------------Beidou---------------------//
@@ -111,7 +123,14 @@ const defaultAbils: AbilsType = {
     "Let the People Rejoice": ["burst", "skillDmg"],
 
     //?---------------------Gaming---------------------//
+    "Charmed Cloudstrider": ["skill", "cloudstriderDmg"],
+    "Suanni's Gilded Dance (Q)": ["burst", "smashDmg"],
+
     //?---------------------Ganyu----------------------//
+    "Frostflake Arrow": ["charged", "frostflake"],
+    "Frostflake Arrow Bloom": ["charged", "frostflakeBloom"],
+    "Ice Lotus": ["skill", "dmg"],
+    "Celestial Shower": ["burst", "dmg"],
 
     //?---------------------Gorou----------------------//
     "Inuzaka All-Round Defense": ["skill", "dmg"],
@@ -189,12 +208,23 @@ const defaultAbils: AbilsType = {
     //?---------------------Qiqi-----------------------//
     //?---------------------Raiden---------------------//
     //?---------------------Razor----------------------//
+
+    //?---------------------Rosaria--------------------//
+    "Rites of Termination (DoT)": ["burst", "dotDmg"],
+    "Rites of Termination (Hit 1)": ["burst", "hit1"],
+    "Rites of Termination (Hit 2)": ["burst", "hit2"],
+
     //?---------------------Sara-----------------------//
     //?---------------------Sayu-----------------------//
     //?---------------------Sethos---------------------//
     //?---------------------Shenhe---------------------//
     //?---------------------Sigewinne------------------//
+
     //?---------------------Sucrose--------------------//
+    "Astable Anemohypostasis Creation-6308": ["skill", "press"],
+    "Forbidden Creation-Isomer 75/Type II": ["burst", "dot"],
+    "Forbidden Creation-Isomer 75/Type II (Absorb)": ["burst", "cryo"],
+
     //?---------------------Tartaglia------------------//
     //?---------------------Thoma----------------------//
     //?---------------------Tighnari-------------------//
@@ -213,7 +243,14 @@ const defaultAbils: AbilsType = {
     //?---------------------Wanderer-------------------//
     //?---------------------Wriothesley----------------//
     //?---------------------Xiangling------------------//
+
     //?---------------------Xiangyun-------------------//
+    "Driftcloud Wave (1 Leaps)": ["skill", "firstLeapDmg"],
+    "Driftcloud Wave (2 Leaps)": ["skill", "secondLeapDmg"],
+    "Driftcloud Wave (3 Leaps)": ["skill", "thirdLeapDmg"],
+    "Stars Gather at Dusk (Initial)": ["burst", "instantDmg"],
+    "Starwicker": ["burst", "coordinatedDmg"],
+
     //?---------------------Xiao-----------------------//
     
     //?---------------------Xilonen--------------------//
