@@ -438,6 +438,10 @@
         box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff; /* Sombra más intensa al pasar el mouse */
     }
 
+    :global(body.neon-retro-theme button:active) {
+        transform: scale(0.95);
+    }
+    
     :global(body.neon-retro-theme .neon-text) {
         font-size: 2rem;
         animation: flicker 1.5s infinite alternate;
@@ -766,36 +770,58 @@
     .mods-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 0.75rem;
+        gap: 1rem;
         margin: 1rem 0;
+        padding: 0.5rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
     }
 
     .mod-item {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.05);
         padding: 0.75rem;
-        border-radius: 6px;
-        transition: background 0.2s ease;
-        word-break: break-word;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        // background: rgba(255, 255, 255, 0.03);
         min-height: 40px;
+    }
 
-        &:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+    .mod-item input[type="checkbox"] {
+        display: none;
+    }
 
-        input[type="checkbox"] {
-            accent-color: #646cff;
-            margin-top: 3px;
-        }
+    .mod-item label {
+        padding: 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-        label {
-            flex: 1;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            cursor: pointer;
-        }
+    .mod-item input[type="checkbox"]:checked + label {
+        background-color: hsla(3, 100%, 60%, 0.531);
+        color: white;
+    }
+
+    .mod-item input[type="checkbox"]:not(:checked) + label {
+        background-color: hsla(120, 39%, 45%, 0.531);
+        color: white;
+    }
+
+    .mod-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .error-section {
