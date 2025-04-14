@@ -95,7 +95,7 @@ export function convertAbils(abils: AbilInfo[], convert: AbilsType): [CustomMult
     const errors = result.map(x => x[1]).reduce((x, current) => [...current, ...x], []);
     return [
         {
-            name: "New config",
+            name: "Powered by DarkJake",
             targets
         },
         errors

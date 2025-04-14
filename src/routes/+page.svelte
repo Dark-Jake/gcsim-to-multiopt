@@ -306,7 +306,7 @@
         } else if (newTarget) {
             errorContexts = [];
             target = {
-                name: configName || "New config",
+                name: configName || "Powered by DarkJake",
                 targets: [newTarget]
             };
             updateHighlightedJson();
@@ -315,7 +315,7 @@
 
     function updateHighlightedJson() {
         if (target) {
-            target.name = configName || "New config";
+            target.name = configName || "Powered by DarkJake";
             const jsonString = JSON.stringify(target, null, 2);
             highlightedJson = Prism.highlight(jsonString, Prism.languages.json, 'json');
         }
@@ -784,7 +784,7 @@
         padding: 0.75rem;
         border-radius: 8px;
         transition: all 0.2s ease;
-        // background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.03);
         min-height: 40px;
     }
 
@@ -1120,6 +1120,102 @@
         color: #ff1100 !important; 
     }
 
+    .section-header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .info-icon {
+        display: inline-flex;
+        width: 12px;
+        height: 12px;
+        background: #646cff;
+        border-radius: 50%;
+        color: white;
+        font-size: 0.75rem;
+        align-items: center;
+        justify-content: center;
+        cursor: help;
+        position: relative;
+    }
+
+    .tooltip {
+        position: absolute;
+        top: -250%;
+        left: 15%;
+        transform: translateX(0);
+        background: linear-gradient(180deg, rgba(30,30,30,0.98), rgba(20,20,20,0.98));
+        color: #f0f0f0;
+        padding: 1rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        white-space: normal;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.2s ease;
+        width: 280px;
+        // box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        box-shadow: 2px 2px 2px 1px #646cff;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(2px);
+    }
+
+    /* Flechita */
+    .tooltip::after {
+    bottom: -8px;
+    left: 20px;
+    border-width: 8px 8px 0 8px;
+    border-color: rgba(20, 20, 20, 0.98) transparent transparent transparent;
+}
+
+
+    .info-icon:hover + .tooltip {
+        opacity: 1;
+        transform: translateX(0) scale(1.02);
+        pointer-events: auto;
+    }
+
+    .tooltip p {
+        margin-bottom: 0.6rem;
+    }
+
+    .tooltip-note {
+        font-size: 0.75rem;
+        color: #aaaaaa;
+        font-style: italic;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .tooltip-color-guide {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        gap: 0.3rem;
+    }
+
+    .mod-box {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+    }
+
+    .mod-box.active {
+        background-color: hsla(120, 39%, 45%, 0.531);
+    }
+
+    .mod-box.inactive {
+        background-color: hsla(3, 100%, 60%, 0.531);
+    }
+
     .input-group {
         margin-bottom: 1rem;
 
@@ -1216,7 +1312,7 @@
     }
 }
 
-   
+
     .layout {
         min-height: 100vh;
         display: flex;
@@ -1375,7 +1471,22 @@
     {/if}
     
     {#if availabledMods.length > 0}
-        <h2>Ignored Mods</h2>
+        <div class="section-header">
+            <h2>Ignored Mods</h2>
+            <span class="info-icon">?</span>
+            <div class="tooltip">
+                <p><strong>What is this for?</strong></p>
+                <p style="text-align: justify">Enable or disable specific mods to include or exclude them from the configuration used for Genshin Optimizer.</p>
+                
+                <p class="tooltip-note"><strong>Note:</strong> By default, all mods are active and included.</p>
+
+                <div class="tooltip-color-guide">
+                    <div><span class="mod-box active"></span> Active Mod (Included)</div>
+                    <div><span class="mod-box inactive"></span> Inactive Mod (Ignored)</div>
+                </div>
+            </div>
+        </div>
+
         <div class="mods-grid">
             {#each availabledMods as mod}
                 <div class="mod-item">
