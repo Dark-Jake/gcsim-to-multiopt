@@ -5,11 +5,14 @@ const defaultAbils: AbilsType = {
     "Normal 1": ["normal", "1"],
     "Normal 2": ["normal", "2"],
     "Normal 3": ["normal", "3"],
+    "Normal 4": ["normal", "4"],
     "Charge": ["charged", "dmg"],
     "Charge Attack": ["charged", "dmg"],
+    "High Plunge": ["plunging", "high"],
 
     //TODO reactions
     "bloom": ["reaction", "bloom"],
+    "burning": ["reaction", "burning"],
     "hyperbloom": ["reaction", "hyperbloom"],
     "overload": ["reaction", "overloaded"],
     "swirl-hydro": ["reaction", "hydroSwirl"],
@@ -36,6 +39,7 @@ const defaultAbils: AbilsType = {
     "Prophecies of Dawn": ["burst", "dmg"],
 
     //?---------------------Amber----------------------//
+    "Fiery Rain": ["burst", "dmgPerWave"],
 
     //?-------------------Arlecchino-------------------//
     "Blood Debt Directive": ["skill", "sigilDmg"],
@@ -90,6 +94,15 @@ const defaultAbils: AbilsType = {
     "Secondary Explosive Shell": ["burst", "shellDmg"],
     "Explosive Grenade": ["burst", "grenadeDmg"],
     
+    //?---------------------Chiori---------------------//
+    "Fluttering Hasode (Upward Sweep)": ["skill", "sweepDmg"],
+    "Fluttering Hasode (Tamato - Construct)": ["skill", "turretDmg"],
+    "Fluttering Hasode (Tamato)": ["skill", "turretDmg"],
+    "Hiyoku: Twin Blades": ["burst", "bloomDmg"],
+    "Fluttering Hasode (Seize the Moment)": ["passive1", "dollDmg"],
+    "Fluttering Hasode (Kinu)": ["constellation2", "dollDmg"],
+    "Cleardew Cologne (A1)": ["passive1", "dmg"],
+
     //?---------------------Chongyun-------------------//
     //?---------------------Clorinde-------------------//
     //?---------------------Collei---------------------//
@@ -98,7 +111,13 @@ const defaultAbils: AbilsType = {
     //?---------------------Diluc----------------------//
     //?---------------------Diona----------------------//
     //?---------------------Dori-----------------------//
+
     //?---------------------Emilie---------------------//
+    "Lumidouce Case (Summon)": ["skill", "skillDmg"],
+    "Lumidouce Case (Level 1)": ["skill", "level1Dmg"],
+    "Lumidouce Case (Level 2)": ["skill", "level2Dmg"],
+    "Spiritbreath Thorn": ["skill", "thornDmg"],
+
     //?---------------------Eula-----------------------//
     //?---------------------Faruzan--------------------//
 
@@ -141,6 +160,8 @@ const defaultAbils: AbilsType = {
 
     //?---------------------Hu Tao---------------------//
     "Blood Blossom": ["skill", "dmg"],
+    "Spirit Soother": ["burst", "dmg"],
+    "Paramita (0 dmg)": ["skill", "atk"],
 
     //?---------------------Itto-----------------------//
     "Arataki Kesagiri Final Slash": ["charged", "akFinal"],
@@ -150,11 +171,31 @@ const defaultAbils: AbilsType = {
     //?---------------------Jean-----------------------//
     //?---------------------Kaeya----------------------//
     //?---------------------Kaveh----------------------//
+
     //?---------------------Kazuha---------------------//
+    "Kazuha A1": ["passive1", "absorb"],
+    // "High Plunge": ["skill", "phigh"], //! Not sure
+    "Chihayaburu": ["skill", "press"], //! Not sure
+    "Kazuha Slash": ["burst", "dmg"],
+    "Kazuha Slash (Dot)": ["burst", "dot"],
+    "Kazuha Slash (Absorb Dot)": ["burst", "absorb"],
+
     //?---------------------Keqing---------------------//
+
     //?---------------------Kinich---------------------//
+    "Loop Shot 0": ["skill", "shotDmg"],
+    "Loop Shot 1": ["skill", "shotDmg"],
+    "Scalespiker Cannon": ["skill", "cannonDmg"],
+    "Scalespiker Cannon (C6)": ["constellation6", "dmg"],
+
     //?---------------------Kirara---------------------//
     //?---------------------Klee-----------------------//
+
+    //?---------------------Kokomi---------------------//
+    "Bake-Kurage": ["skill", "dmg"],
+    "Nereid's Ascension": ["burst", "dmg"],
+    "At Water's Edge (C1)": ["constellation1", "dmg"],
+
     //?---------------------Kuki-----------------------//
     //?---------------------Layla----------------------//
 
@@ -189,7 +230,18 @@ const defaultAbils: AbilsType = {
     "Tri-Karma Purification: Karmic Oblivion": ["constellation6", "dmg"],
 
     //?---------------------Navia----------------------//
+    "Rosula Shardshot": ["skill", "totalShardDmg"],
+    "Surging Blade": ["skill", "bladeDmg"],
+    "As the Sunlit Sky's Singing Salute": ["burst", "skillDmg"],
+    "Cannon Fire Support": ["burst", "supportDmg"],
+    "The President's Pursuit of Victory": ["burst", "supportDmg"], //! (C2)
+
     //!---------------------Neuvillette----------------//
+    "Charged Attack: Equitable Judgment": ["charged", "judgmentDmg"],
+    "O Tides, I Have Returned: Waterfall DMG": ["burst", "waterfallDmg"],
+    "O Tides, I Have Returned: Skill DMG": ["burst", "skillDmg"],
+    "Spiritbreath Thorn (Neuvillette)": ["skill", "thornDmg"],
+    "O Tears, I Shall Repay": ["skill", "skillDmg"],
 
     //!---------------------Nilou----------------------//
     "Tranquility Aura": ["element", "hydro"], // No damage
@@ -217,7 +269,13 @@ const defaultAbils: AbilsType = {
     //?---------------------Sara-----------------------//
     //?---------------------Sayu-----------------------//
     //?---------------------Sethos---------------------//
+
     //?---------------------Shenhe---------------------//
+    "Spring Spirit Summoning (Press)": ["skill", "press"],
+    "Spring Spirit Summoning (Hold)": ["skill", "hold"],
+    "Divine Maiden's Deliverance (Initial)": ["burst", "dmg"],
+    "Divine Maiden's Deliverance (DoT)": ["burst", "dot"],
+
     //?---------------------Sigewinne------------------//
 
     //?---------------------Sucrose--------------------//
@@ -260,6 +318,10 @@ const defaultAbils: AbilsType = {
     "Ocelotlicue Point!": ["burst", "skillDmg"],
     
     //?---------------------Xingqiu--------------------//
+    "Xingqiu Orbital": ["type", "subtype"], //! No damage
+    "Guhua Sword: Fatal Rainscreen": ["skill", "press1"], //! Only first hit because both hits have same name
+    "Guhua Sword: Raincutter": ["burst", "dmg"],
+
     //?---------------------Xinyan---------------------//
     //?---------------------Yae Miko-------------------//
     //?---------------------Yanfei---------------------//
@@ -269,8 +331,18 @@ const defaultAbils: AbilsType = {
     "Lingering Lifeline": ["skill", "dmg"],
     "Depth-Clarion Dice": ["burst", "pressDmg"],
     "Exquisite Throw": ["burst", "throwDmg"],
+    "Yelan C2 Proc": ["constellation2", "arrowDmg"],
+    "Breakthrough Barb": ["constellation6", "barbDmg"],
 
     //?---------------------Yoimiya--------------------//
+    "Aurous Blaze": ["burst", "dmg"],
+    "Aurous Blaze (Explode)": ["burst", "exp"],
+    "Kindling (C6) - N0": ["constellation6", "0"], //! N1 * 2
+    "Kindling (C6) - N1": ["constellation6", "1"], //! N2
+    "Kindling (C6) - N2": ["constellation6", "2"], //! N3
+    "Kindling (C6) - N3": ["constellation6", "3"], //! N4 * 2
+    "Kindling (C6) - N4": ["constellation6", "4"], //! N5
+
     //?---------------------Yun Jin--------------------//
     //?---------------------Zhongli--------------------//
     
