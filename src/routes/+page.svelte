@@ -53,6 +53,16 @@
     let toastTimeout: ReturnType<typeof setTimeout>;
     let configName = '';
 
+    // Base skill descriptions
+    const abilityDescriptions: Record<string, string> = {
+      "Normal 0": "Ataque básico del personaje.",
+      "Bake-Kurage": "Invoca una medusa que cura y daña a los enemigos.",
+      "Sea-Dyed Foam": "Aplica una burbuja que explota e inflige daño adicional.",
+      "Cannon Fire Support": "Aplica un apoyo que inflige daño adicional.",
+    };
+
+    (globalThis as any).abilityDescriptions = abilityDescriptions;
+
     function toggleError(index: number) {
         if (expandedErrors.has(index)) {
             expandedErrors.delete(index);
@@ -399,6 +409,33 @@
         }
     }
 
+    :global(body.neon-retro-theme) footer {
+    background: linear-gradient(90deg, #1a0032 0%, #0c003f 100%);
+    color: #00ffe7;
+    border-top: 2px solid #ff00ff;
+    box-shadow: 0 -4px 32px 0 #ff00ff55, 0 -1px 16px 0 #00ffe799;
+    }
+    :global(body.neon-retro-theme) .footer-separator {
+    background: linear-gradient(180deg, #ff00ff 0%, #00ffe7 100%);
+    opacity: 0.5;
+    }
+    :global(body.neon-retro-theme) .support-title {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff88, 0 0 6px #00ffe799;
+    }
+    :global(body.neon-retro-theme) .footer-icon {
+    color: #ff00ff;
+    filter: drop-shadow(0 2px 16px #ff00ff22);
+    transition: color 0.2s, filter 0.2s;
+    }
+    :global(body.neon-retro-theme) .footer-icon:hover {
+    color: #00ffe7;
+    filter: drop-shadow(0 2px 16px #00ffe799);
+    }
+    :global(body.neon-retro-theme) .footer-icon:active {
+    transform: scale(0.98);
+    }
+
     :global(body.neon-retro-theme) {
         background: #070410; /* Fondo oscuro */
         color: #00ffcc; /* Texto en color cian neón */
@@ -449,7 +486,7 @@
 
     @keyframes flicker {
         0% {
-            text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
         }
         100% {
             text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 80px #00ffcc;
@@ -941,6 +978,10 @@
             border-color: #646cff;
             box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
         }
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
     }
 
     .copy-section {
@@ -1330,18 +1371,18 @@
     }
 
     footer {
-    background: linear-gradient(to right, rgba(30, 30, 30, 0.95), rgba(40, 40, 40, 0.95));
-    color: #d1d5db;
-    text-align: center;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-style: italic;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    margin-top: 2rem;
-    position: relative;
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
-}
+        background: linear-gradient(to right, rgba(30,30,30,0.95), rgba(40,40,40,0.95));
+        color: #d1d5db;
+        text-align: left;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        font-size: 1rem;
+        font-style: italic;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        margin-top: 2rem;
+        position: relative;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
 
     footer::before {
         content: "";
@@ -1379,6 +1420,51 @@
     footer a:active {
         transform: translateY(0);
     }
+
+.footer-support {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Cambiado de flex-end a center para centrar el texto y los iconos */
+  gap: 0.5rem;
+  min-width: 150px;
+}
+.support-title {
+  color: #93c5fd;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px #646cff44;
+  text-align: center;
+}
+.footer-icons {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center; /* Cambiado de flex-end a center para centrar los iconos */
+}
+@media (max-width: 900px) {
+  .footer-support {
+    align-items: center; /* Centrado también en responsive */
+    width: 100%;
+  }
+  .footer-icons {
+    justify-content: center;
+  }
+}
+@media (max-width: 600px) {
+  footer {
+    padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+  }
+  .footer-inner, .footer-main {
+    gap: 0.7rem;
+  }
+  .footer-support {
+    min-width: 0;
+  }
+  .footer-icons {
+    gap: 0.7rem;
+  }
+}
 </style>
 
 <svelte:head>
@@ -1387,7 +1473,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Fira+Code&display=swap" rel="stylesheet">
 </svelte:head>
-
 
 <div class="layout">
     <main>
@@ -1616,10 +1701,135 @@
 </main>
 
 <footer>
-    <p>This application is a modern reinterpretation of 
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-text">
+        <span>This application is a rework of </span>
         <a href="https://imring.github.io/gcsim-to-multiopt/" target="_blank" rel="noopener noreferrer">
-            imring.github.io/gcsim-to-multiopt/
-        </a>, enhancing the user experience and adding new features.
-    </p>
+          imring.github.io/gcsim-to-multiopt/
+        </a>
+        <span>, enhancing the user experience.</span>
+      </div>
+      <div class="footer-separator"></div>
+      <div class="footer-support">
+        <div class="support-title">Support me</div>
+        <div class="footer-icons">
+          <a href="https://www.youtube.com/@animadogi" target="_blank" title="YouTube" rel="noopener noreferrer" class="footer-icon" aria-label="YouTube">
+            <svg width="28" height="28" viewBox="0 0 461.001 461.001" fill="none" class="footer-icon"><path fill="currentColor" d="M365.257 67.393H95.744C42.866 67.393 0 110.259 0 163.137v134.728c0 52.878 42.866 95.744 95.744 95.744h269.513c52.878 0 95.744-42.866 95.744-95.744V163.137c0-52.878-42.866-95.744-95.744-95.744zm-64.751 169.663-126.06 60.123c-3.359 1.602-7.239-.847-7.239-4.568V168.607c0-3.774 3.982-6.22 7.348-4.514l126.06 63.881c3.748 1.899 3.683 7.274-.109 9.082z"/></svg>
+          </a>
+          <a href="https://ko-fi.com/darkjake" target="_blank" title="Ko-fi" rel="noopener noreferrer" class="footer-icon" aria-label="Ko-fi">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="footer-icon"> <path fill="currentColor" d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"></path> </svg>
+          </a>
+          <a href="https://discord.gg/excelverso-3-0-1104977284609343558" target="_blank" title="Discord" rel="noopener noreferrer" class="footer-icon" aria-label="Discord">
+            <svg width="28" height="28" viewBox="0 -28.5 256 256" fill="none" class="footer-icon"> <path fill="currentColor" d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046-19.692-2.961-39.203-2.961-58.533 0-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632 108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237 136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848 21.142-6.58 42.646-16.637 64.815-33.213 5.316-56.288-9.08-105.09-38.056-148.36ZM85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2.02 14.375-10.148 26.18-23.015 26.18Zm85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2 0 14.375-10.148 26.18-23.015 26.18Z"></path> </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<style>
+footer {
+  background: linear-gradient(90deg, rgba(30,30,60,0.95) 0%, rgba(40,20,60,0.95) 100%);
+  color: #d1d5db;
+  text-align: left;
+  padding: 1rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+  font-style: italic;
+  box-shadow: 0 -4px 24px 0 rgba(100, 108, 255, 0.16);
+  border-top: 2px solid #646cff;
+  backdrop-filter: blur(6px);
+  position: relative;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.footer-main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.footer-text {
+  font-family: 'Roboto', 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #e4e5e7;
+  margin-bottom: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.footer-separator {
+  width: 2px;
+  min-height: 48px;
+  background: linear-gradient(180deg, #646cff 0%, #42b883 100%);
+  margin: 0 2rem;
+  border-radius: 4px;
+  opacity: 0.4;
+}
+.footer-support {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Cambiado de flex-end a center para centrar el texto y los iconos */
+  gap: 0.5rem;
+  min-width: 150px;
+}
+.support-title {
+  color: #93c5fd;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px #646cff44;
+  text-align: center;
+}
+.footer-icons {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .footer-inner, .footer-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .footer-support {
+    align-items: center; /* Centrado también en responsive */
+    width: 100%;
+  }
+  .footer-separator {
+    display: none;
+  }
+  .footer-icons {
+    justify-content: center;
+  }
+}
+@media (max-width: 600px) {
+  footer {
+    padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+  }
+  .footer-inner, .footer-main {
+    gap: 0.7rem;
+  }
+  .footer-support {
+    min-width: 0;
+  }
+  .footer-icons {
+    gap: 0.7rem;
+  }
+}
+</style>
 </div>

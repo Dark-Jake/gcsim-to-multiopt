@@ -54,6 +54,11 @@ function convertAbil(abil: AbilInfo, convert: AbilsType): [CustomTarget | undefi
         bonusStats["enemyDefRed_"] = abil.defShred * 100;
     }
 
+    let description = "";
+    if (typeof globalThis.abilityDescriptions === "object") {
+        description = globalThis.abilityDescriptions[abil.name] || "Sin descripción disponible.";
+    }
+
     const result: CustomTarget = {
         weight: 1,
         path: abilPath,
@@ -61,7 +66,7 @@ function convertAbil(abil: AbilInfo, convert: AbilsType): [CustomTarget | undefi
         reaction: abil.reaction,
         infusionAura: abil.infusion,
         bonusStats,
-        description: "",
+        description,
     };
     return [result, errors];
 }
@@ -96,6 +101,7 @@ export function convertAbils(abils: AbilInfo[], convert: AbilsType): [CustomMult
     return [
         {
             name: "Powered by DarkJake",
+            description: "This configuration was generated with --> https://dark-jake.github.io/gcsim-to-multiopt/",
             targets
         },
         errors
